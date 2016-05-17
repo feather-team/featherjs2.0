@@ -11,7 +11,7 @@ feather.js 2.0 是1.x基础上的重构，并去除了deps配置。
 API
 ------------
 
-* ** define(mod, [deps, ]factory)**：定义一个模块, define依赖某一模块时 需要提供deps参数, deps参数可为数组或者字符串。
+* **define(mod, [deps, ]factory)**：定义一个模块, define依赖某一模块时 需要提供deps参数, deps参数可为数组或者字符串。
 
 ```js
 define('mod/mod1/mod1.js', function(require, exports, module){
