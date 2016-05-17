@@ -325,8 +325,6 @@ var rid = 0, config = {
     map: {}
 };
 
-var rid = 0;
-
 Helper.extend(require, {
     Helper: Helper,
 
