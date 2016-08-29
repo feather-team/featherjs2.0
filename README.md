@@ -52,13 +52,13 @@ require.async(['mod/mod1/mod1.js', 'mod/mod2/mod2.js'], function(Mod1, Mod2){
 * **require.config**: 配置全局。
 ```js
 //baseurl配置，所有不以/开头的模块名会自动加上该参数得到完整的模块名。
-require.config.baseurl = '';
+require.config('baseurl', '');
 
 //解析模块名
-require.config.rules = [
+require.config('rules', [
     [/^\w+$/, '$&/$&.js'],   //定义了一个规则，所以为或调用了字母和数组合的模块名时，比如 abc,则都会解析成abc/abc.js
     [/^common~\w+$/, 'common/plugins/$&.js'] //common~a => common/plugins/a.js
-];
+]);
 
 //通过rules配置会自动调用mod/mod1/mod1.js模块，解析过程为 baseurl + rules = 模块名; 
 //注: 这一解析过程包含define和require以及require.async过程。
@@ -67,9 +67,9 @@ require.async('mod1');
 
 //配置domain参数，所有的请求发出时会自动带上domain参数，并发出请求，
 //注：该参数不参与模块名的解析。
-require.config.domain = 'http://github.com/';
+require.config('domain', 'http://github.com/');
 
 //map表，用于将模块合并打包，表示包于各模块的对应关系，并当require某一个模块时，会自动发送请求至map的key值url上。 //该参数不参与模块名的解析。
-require.config.map = {
+require.config('map', {
     'pkg/mod.js': ['mod/mod1/mod1.js', 'mod/jquery/jquery.js']
-};
+});
