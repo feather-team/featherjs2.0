@@ -310,7 +310,7 @@ require = Module.require = function(name){
     var realname = require.getRealModuleName(name);
     var store = Module.stores[realname];
 
-    if(!store.exports){
+    if(!store){
         throw new Error('module [' + realname + ']\' not found!');
     }
 
@@ -326,7 +326,7 @@ var rid = 0, config = {
 };
 
 Helper.extend(require, {
-    Helper: Helper,
+    helper: Helper,
 
     version: '2.0.0',
 
