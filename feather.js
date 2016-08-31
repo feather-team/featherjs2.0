@@ -205,7 +205,7 @@ Module.analyseNeedLoadUrls = function(deps){
     var needLoads = [];
 
     Helper.each(deps, function(store){
-        var realUrl = require.getRealUrl(store.name), urlStore = Module.getUrlStore(realUrl), urlStatus = urlStore.status;
+        var realUrl = require.url(store.name), urlStore = Module.getUrlStore(realUrl), urlStatus = urlStore.status;
 
         store.url = realUrl;
 
@@ -307,7 +307,7 @@ Module.init = function(name){
 };
 
 require = Module.require = function(name){
-    var realname = require.getRealModuleName(name);
+    var realname = require.id(name);
     var store = Module.stores[realname];
 
     if(!store){
@@ -343,7 +343,7 @@ Helper.extend(require, {
                     var map = config.map[url] || [];
                     
                     Helper.each(Helper.makeArray(mods), function(mod){
-                        map.push(require.getRealModuleName(mod));
+                        map.push(require.id(mod));
                     });
 
                     config.map[url] = map;
@@ -359,7 +359,7 @@ Helper.extend(require, {
     },
 
     async: function(deps, callback){
-        deps = require.getRealModuleName(deps);
+        deps = require.id(deps);
 
         new Module('_r_' + rid++, function(){   
             var modules = [];
@@ -372,10 +372,10 @@ Helper.extend(require, {
         }, deps, true);
     },
 
-    getRealModuleName: function(name){
+    id: function(name){
         if(Helper.is(name, 'Array')){
             Helper.each(name, function(v, k){
-                name[k] = require.getRealModuleName(v);
+                name[k] = require.id(v);
             });
 
             return name;
@@ -394,7 +394,7 @@ Helper.extend(require, {
         }
     },
 
-    getRealUrl: function(name){
+    url: function(name){
         var map = config.map || {}, domain = config.domain || '';
 
         for(var i in map){
@@ -414,8 +414,8 @@ define = function(name, callback, deps){
         deps = s;
     }
 
-    deps = require.getRealModuleName(deps);
-    name = require.getRealModuleName(name);
+    deps = require.id(deps);
+    name = require.id(name);
 
     new Module(name, callback, deps);
 };
