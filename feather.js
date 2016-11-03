@@ -202,7 +202,7 @@ Helper.extend(Module, {
 });
 
 Module.analyseNeedLoadUrls = function(deps){
-    var needLoads = [];
+    var needLoads = {};
 
     Helper.each(deps, function(store){
         var realUrl = require.url(store.name), urlStore = Module.getUrlStore(realUrl), urlStatus = urlStore.status;
@@ -215,8 +215,8 @@ Module.analyseNeedLoadUrls = function(deps){
 
         urlStore.modules.push(store.name);
 
-        if(urlStatus == Module.STATUS.UNDEFINED){
-            needLoads.push(urlStore);
+        if(!needLoads[realUrl] && urlStatus == Module.STATUS.UNDEFINED){
+            needLoads[realUrl] = urlStore;
         }
     });
 
@@ -328,7 +328,7 @@ var rid = 0, config = {
 Helper.extend(require, {
     helper: Helper,
 
-    version: '2.0.0',
+    version: '2.0.1',
 
     load: Module.load,
 
