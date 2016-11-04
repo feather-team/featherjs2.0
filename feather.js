@@ -311,7 +311,7 @@ require = Module.require = function(name){
     var store = Module.stores[realname];
 
     if(!store){
-        throw new Error('module [' + realname + ']\' not found!');
+        throw new Error('module [' + realname + '] not found!');
     }
 
     return store.execute();
